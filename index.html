@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<link id="main_style" type="text/css" rel="stylesheet" href="style/welcome.css" />
+<link id="main_style" type="text/css" rel="stylesheet" href="style/main_style.css" />
+<link id="main_style" type="text/css" rel="stylesheet" href="style/quiz.css" />
+<script type="text/javascript" src="script/quiz.js"></script>
+<script type="text/javascript" src="script/save.js"></script>
+</head>
+
+<body oncopy="return false" oncut="return false" onpaste="return false">
+  <form style="display:none;" id=save method=post action=save.php>
+		  <input type=text id=solution name=solution />
+		  <input type=text id=fullName name=fullName />
+  </form>
+  <div id=welcome >
+	  <img id="welcome_logo" src="logo.png" ></img><br/>
+	  <h1 style=" opacity:0; animation:text_zoom_in; animation-duration:5s; animation-fill-mode: forwards; ">Computer Science Assessment</h1>
+	  <h3 style=" opacity:0; animation:text_zoom_in; animation-duration:5s; animation-fill-mode: forwards; animation-delay:5s;">Time: 25 min</h3>
+	  <h6 style=" opacity:0; animation:text_zoom_in; animation-duration:5s; animation-fill-mode: forwards; animation-delay:10s;">Good Luck</h6>
+ 	  <input type='text' name="familyName" id="familyName" value="Family Name" onclick="this.value='';" />
+ 	  <input type='text' name="firstName" id="firstName"  onclick="this.value='';" value="First Name" />
+ 	  <input type='button' style=" width:200px;" value="Start Quiz"  onclick="startQuiz();" />
+	  </div>
+  <div id=main_container style="display:none;">
+	<div id=header dir=rtl >
+				<button class="quizSwitch" onclick="goToExercie(0)">Exercice 1 </button>	
+				<button class="quizSwitch" onclick="goToExercie(1)">Exercice 2 </button>	
+				<button class="quizSwitch" onclick="goToExercie(2)">Exercice 3 </button>	
+				<span class="quizSwitch" id=fullNameSpan ></span>	
+	</div>
+	<div id=main >
+		<div id=leftside >
+		
+			<div id=editor_zone>				
+				<div class=heading >Edit Code</div>
+				<div class=content ><textarea type="textarea" id="editor" class="visible" autofocus > </textarea>	</div>
+			</div>
+			<div id=viewer_zone >
+			<div class=heading >Preview</div>
+			<div class=content > <iframe  id="viewer" class="visible" > </iframe>  </div>
+			</div>
+		</div>
+		<!--iframe  id="viewer"  src="browser.php?code=" class="visible" > </iframe-->
+		<div id=rightside >
+		
+			<div id=quiz_text_zone>	
+				<div class=heading >Question</div>				
+				<div id=quiz_text  class=content ></div>
+			</div>
+			
+			<div id=quiz_example_zone>				
+				<div class=heading >Example</div>				
+				<!--div id=quiz_example  class=content ></div-->
+				<iframe id=quiz_example  class=content ></iframe>
+			</div>
+			<div id=quiz_check_zone>
+				<div class=heading >Rate</div>				
+				<div id=quiz_check  class=content ></div>
+			</div>
+		</div>
+	</div>
+	<div id=footer >		
+		<div id=clockBar ></div>
+	</div>
+  </div>
+	<script>
+	function startQuiz(){
+		if(document.getElementById('firstName').value=='' || document.getElementById('firstName').value=='First Name' || 
+		document.getElementById('familyName').value=='' || document.getElementById('familyName').value=='Family Name' ){ return false;}
+		document.getElementById("fullNameSpan").innerHTML = document.getElementById("familyName").value+'_'+document.getElementById("firstName").value;
+		document.getElementById("fullName").value = document.getElementById("familyName").value+'_'+document.getElementById("firstName").value;
+			document.getElementById("welcome").style.display = "none";
+			document.getElementById("main_container").style.display = "block";
+			document.getElementById("main_container").style.height = window.innerHeight+"px";
+			document.getElementById("main").style.height				= window.innerHeight*0.9+"px";
+			//document.getElementById("rightside").style.height			= window.innerHeight*0.9+"px";
+			document.getElementById("editor").style.height 				= window.innerHeight*0.9*0.45+"px";
+			document.getElementById("viewer").style.height 				= window.innerHeight*0.9*0.45+"px";
+			//document.getElementById("quiz_text_zone").style.height		= window.innerHeight*0.9*0.20+"px";//
+			//document.getElementById("quiz_example_zone").style.height	= window.innerHeight*0.9*0.45+"px";//
+			//document.getElementById("quiz_text").style.height		= window.innerHeight*0.9*0.15+"px";//
+			//document.getElementById("quiz_check").style.height		= window.innerHeight*0.9*0.30+"px";//
+			document.getElementById("quiz_example").style.height		= window.innerHeight*0.9*0.40+"px";
+			//document.getElementById("quiz_example").style.width		= window.innerWidth*0.5*0.9+"px";
+			timeOut = 25 * 60;
+		}
+		//setTimeout("startQuiz();", 10);
+		var timeOut;
+		var quizNumber = 0;
+		quizes[0].showQuiz();
+		function quizSwitch(){
+			quizes[quizNumber].saveWork();
+			quizNumber = (quizNumber+1)%quizes.length;
+			quizes[quizNumber].showQuiz();
+			update_viewer();
+		}
+		
+		function goToExercie(num){
+			quizes[quizNumber].saveWork();
+			quizNumber = num;
+			quizes[quizNumber].showQuiz();
+			update_viewer();
+		}
+		function twoDigits(x){
+			if(x<10){ return '0'+x;}else{ return x; }
+		}
+		var updateTime = function(){
+			var minutes = Math.floor(timeOut/60);
+			var seconds = (timeOut%60);
+			
+			//console.log(minutes+':'+seconds);
+			document.getElementById("clockBar").innerHTML=twoDigits(minutes)+':'+twoDigits(seconds);
+			timeOut--;
+			if(timeOut<0){ save(); }
+		}
+		var ivl = setInterval( updateTime ,1000);
+	
+		var display_state	= ["none","inline"];
+		var className	= ["hidden","full_view","visible"];
+		var buttonText		= ["Preview","Edit"];
+		var viewModeText	= ["Full Screen","Split Screen"];
+
+		var viewModeState = 0;
+		var state = 0;
+		var update_viewer = function(){
+			var editor = document.getElementById("editor");
+			//document.getElementById("viewer").src="browser.php?code="+editor.value+"";
+			//document.getElementById("viewer").contentWindow.document.body.innerHTML=editor.value;
+			document.getElementById("viewer").contentWindow.document.firstChild.innerHTML=editor.value;
+			
+			//document.getElementById("viewer").contentWindow.document.body.innerHTML=editor.value;
+			//window.onbeforeunload = function(){ alert("thank you the link is working"); return false; }
+			
+			quizes[quizNumber].saveWork();
+			quizes[quizNumber].verify();
+			//document.getElementById("quiz_mark").innerHTML=quizes[quizNumber].correction(quiz[quizNumber].solution);
+			prevent_leaving_page();
+		};
+		
+		var prevent_leaving_page= function(){
+			var code_viewer = document.getElementById("viewer").contentWindow.document;
+			if(typeof code_viewer.getElementsByTagName('a') != 'undefined'){
+				for(var i=0;i<code_viewer.getElementsByTagName('a').length;i++){
+					code_viewer.getElementsByTagName('a')[i].onclick=function(){ alert('Hyperlinks have been disabled'); return false; }
+				}
+			}
+			var quiz_example = document.getElementById("quiz_example").contentWindow.document;
+			if(typeof quiz_example.getElementsByTagName('a') != 'undefined'){
+				for(var i=0;i<quiz_example.getElementsByTagName('a').length;i++){
+					quiz_example.getElementsByTagName('a')[i].onclick=function(){ alert('Hyperlinks have been disabled');  return false; }
+				}
+			}
+		};
+		document.getElementById("editor").oninput=update_viewer;
+		//document.getElementById("editor").style.height=window.innerHeight*0.9+"px";
+		//document.getElementById("viewer").style.height=window.innerHeight*0.9+"px";
+		document.addEventListener("contextmenu", function(e){
+			e.preventDefault();
+		}, false);
+	</script>
+	</body>
+</html>

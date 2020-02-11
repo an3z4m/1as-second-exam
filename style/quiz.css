@@ -1,0 +1,74 @@
+iframe#quiz_example{
+	width:95%;
+	height:5%;
+	margin:auto;
+}
+
+#quiz_check *{
+	direction: rtl;
+	width:90%;
+	margin: auto;
+	//border-collapse: collapse;
+}
+#quiz_text{
+	direction: rtl;
+	font-size:20px;
+	color:green;
+	//margin:auto;
+}
+#quiz_check > div  > div{
+	border-radius: 5px;
+	border-width:1px;
+	border-style:solid;
+	border-color:green;
+	background-color:#8A0651;//#FFE361;
+	color:#FFFFFF;
+	font-size:16px;
+	margin-bottom: 5px;
+	transition:opacity 2s,background-color 2s;
+	opacity:0.6;
+}
+
+#quiz_check  > div   > div.valide{
+	border-radius: 5px;
+	border-width:1px;
+	border-style:solid;
+	border-color:green;
+	color:#8A0651;
+	background-color:#bdfbae;
+	opacity:1;
+}
+
+#quiz_check  > div   > div > div{
+	display:inline;
+	direction: rtl;
+}
+#quiz_check  > div   > div > div:nth-child(1){
+	width:45%;
+	margin-left:5%;
+	float:right;
+}
+
+#quiz_check  > div   > div > div:nth-child(2){
+	width:30%;
+	margin-left:5%x;
+}
+
+#quiz_check  > div   > div > div:nth-child(3){
+	width:10%;
+	margin-left:5%;
+	float:left;
+}
+
+/*
+
+#quiz_check  > div   > div:nth-child(1) > div:nth-child(1) {
+	font-size:20px;
+	color:green;
+	width:70%;
+}
+
+#quiz_check  > div   > div:nth-child(1) > div:nth-child(2) {	width:0%; }
+#quiz_check  > div   > div:nth-child(1) > div:nth-child(3) {	width:0%; }
+
+*/

@@ -1,0 +1,25 @@
+
+	#welcome{
+		width:100%;
+		height:100%;
+		margin:auto auto auto auto;
+	}
+	@keyframes logo_zoom_out{
+		0%{ width:50%; }
+		100%{  width:40%; }
+	}
+	#welcome_logo{
+		animation:logo_zoom_out;
+		animation-duration:5s;
+		//height:20%;
+		width:40%; 
+	}
+	
+	@keyframes text_zoom_in{
+		0%{ opacity:0.1; font-size:50%; }
+		100%{ opacity:1;  font-size:120%; }
+	}
+	@keyframes body_bgcolor{
+		0%{ background-color:#DCE6E0; }
+		100%{ background-color:#00ED67;}
+	}
