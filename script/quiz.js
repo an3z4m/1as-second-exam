@@ -145,13 +145,12 @@ quizes[0].verify = function(){
 
 
 
-quizes.push(new Quiz("أدرج الصورة  ذات المسار logo.png وسط الصفحة بارتفاع 200 بيكسل و عرض 400 بيكسل كما هو مبين في المثال"));
-//quizes[2].addOption(new Option("أدرج صورة بالخصائص التالية"));
-quizes[1].addOption(new Option("الإدراج الصحيح للصورة","."));
-quizes[1].addOption(new Option("مسار الصورة","logo.png"));
-quizes[1].addOption(new Option("مكان الصورة","وسط الصفحة"));
-quizes[1].addOption(new Option("إرتفاع الصورة","200 بيكسيل"));
-quizes[1].addOption(new Option("عرض الصورة","400 بيكسيل"));
+quizes.push(new Quiz("Include an image named logo.png in the center of page with 400px height and 200px width"));
+quizes[1].addOption(new Option("Image included correctly ","."));
+quizes[1].addOption(new Option("Image source","logo.png"));
+quizes[1].addOption(new Option("Image position ","center"));
+quizes[1].addOption(new Option("Image height ","200 px"));
+quizes[1].addOption(new Option("Image width ","400 px"));
 quizes[1].createView();
 quizes[1].example = "<center><img src=logo.png height=200px width=400px align=center ></img></center>";
 quizes[1].verify = function(){
