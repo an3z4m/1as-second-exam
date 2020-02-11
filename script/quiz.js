@@ -191,17 +191,17 @@ quizes[1].verify = function(){
 	}
 };
 
-quizes.push(new Quiz("أنشئ جدولا من سطرين و ثلاث أعمدة و ارتفاع 150 بيكسل و عرض 300 بيكسل كما في المثال"));
 
-//quizes[0].addOption(new Option("","الإنشاء الصحيح للجدول"));
+quizes.push(new Quiz("Create a table wich has two raws, three columnsn, 150px height and 300px width"));
 quizes[2].example = "<table style='text-align:center; margin:auto;' border=1 height=150px width=300px align=center ><tr><td>A</td> <td>B</td> <td>C</td></tr><tr><td>1</td> <td>2</td> <td>3</td></tr></table>";
 
-quizes[2].addOption(new Option("الإدراج الصحيح للجدول","."));
-quizes[2].addOption(new Option("عدد الأسطر","سطرين"));
-quizes[2].addOption(new Option("عدد الأعمدة","3 أعمدة"));
-quizes[2].addOption(new Option("إطار الجدول","1 بيكسل"));
-quizes[2].addOption(new Option("ارتفاع الجدول","150 بيكسل"));
-quizes[2].addOption(new Option("عرض الجدول ","300 بيكسل"));
+
+quizes[2].addOption(new Option("Table included correctly","."));
+quizes[2].addOption(new Option("Number of raws ","2"));
+quizes[2].addOption(new Option("Number of columns ","3"));
+quizes[2].addOption(new Option("Border width","1px"));
+quizes[2].addOption(new Option("Height ","150px"));
+quizes[2].addOption(new Option("Width","300px"));
 
 quizes[2].createView();
 
